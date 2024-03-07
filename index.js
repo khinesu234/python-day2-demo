@@ -11,7 +11,8 @@ let isFirstClick = true;
 //Click Run
 $(document).ready(function () {
   $("#run-button").click(function () {
-    var bandName = "";
+    inputValues = []
+    
     $("#Content").empty();
     NewLine("Welcome to the tip calculator!", false);
     NewLine("What was the total bill? $", true);
@@ -39,7 +40,9 @@ $(document).on("keydown", function (e) {
       const total_tip_amount = bill * tip_as_percent;
       const total_bill = bill + total_tip_amount;
       const bill_per_person = total_bill / people;
-      const final_amount = Number(Math.round(bill_per_person * 100) / 100);
+      let final_amount = Number(Math.round(bill_per_person * 100) / 100);
+      if (final_amount % 1 == 0) final_amount = `${final_amount}.00`;
+      else if ((final_amount * 10) % 1 == 0) final_amount = `${final_amount}0`;
       NewLine("Each person should pay: $" + final_amount, false);
 
       $(".console-carrot").remove();
